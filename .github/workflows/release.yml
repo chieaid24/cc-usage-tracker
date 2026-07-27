@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build, test, and publish
+        shell: pwsh
+        run: ./scripts/build.ps1
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup --no-progress -y
+
+      - name: Package release
+        shell: pwsh
+        run: |
+          $version = $env:GITHUB_REF_NAME.TrimStart("v")
+          ./scripts/release-local.ps1 `
+            -SkipBuild `
+            -Version $version `
+            -InnoSetupPath "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+
+      - name: Create GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${env:GITHUB_REF_NAME}" `
+            "artifacts/CCUsageTracker-Setup-x64.exe" `
+            "artifacts/CCUsageTracker-win-x64.zip" `
+            "artifacts/SHA256SUMS.txt" `
+            --generate-notes `
+            --title "CC Usage Tracker ${env:GITHUB_REF_NAME}"
