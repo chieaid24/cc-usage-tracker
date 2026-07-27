@@ -1,8 +1,4 @@
-<p align="center">
-  <img src="assets/cc-usage-tracker-icon.png" alt="CC Usage Tracker icon" width="160">
-</p>
-
-# CC Usage Tracker
+# Claude/Codex Usage Tracker
 
 Open Claude and Codex usage pages side by side from the Windows system tray.
 
