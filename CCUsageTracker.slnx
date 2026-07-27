@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/CCUsageTracker/CCUsageTracker.csproj" />
+  <Project Path="tests/CCUsageTracker.Tests/CCUsageTracker.Tests.csproj" />
+</Solution>
