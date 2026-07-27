@@ -58,7 +58,7 @@ internal static partial class NativeMethods
         int height,
         uint flags);
 
-    [LibraryImport("user32.dll", SetLastError = true)]
+    [LibraryImport("user32.dll", EntryPoint = "PostMessageW", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static partial bool PostMessage(nint windowHandle, uint message, nint wParam, nint lParam);
 
@@ -75,11 +75,11 @@ internal static partial class NativeMethods
     [LibraryImport("user32.dll")]
     internal static partial nint MonitorFromWindow(nint windowHandle, uint flags);
 
-    [LibraryImport("user32.dll", SetLastError = true)]
+    [LibraryImport("user32.dll", EntryPoint = "GetMonitorInfoW", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static partial bool GetMonitorInfo(nint monitor, ref MonitorInfo monitorInfo);
 
-    [DllImport("user32.dll", SetLastError = true)]
+    [DllImport("user32.dll", EntryPoint = "SetWindowsHookExW", SetLastError = true)]
     internal static extern nint SetWindowsHookEx(
         int hookId,
         LowLevelKeyboardProc callback,

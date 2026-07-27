@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 - 2026-07-27
+
+### Fixed
+
+- Resolve the Unicode Win32 entry points used for monitor detection, window closing, and the scoped Escape hook.
+
 ## 0.1.0 - 2026-07-27
 
 ### New

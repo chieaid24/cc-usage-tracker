@@ -14,12 +14,17 @@
     <Description>Open Claude and Codex usage pages from the Windows system tray.</Description>
     <Company>CC Usage Tracker contributors</Company>
     <Copyright>Copyright (c) 2026 CC Usage Tracker contributors</Copyright>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon Condition="Exists('Assets/cc-usage-tracker-icon.ico')">Assets/cc-usage-tracker-icon.ico</ApplicationIcon>
     <PublishTrimmed>false</PublishTrimmed>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets/cc-usage-tracker-icon.ico" LogicalName="CCUsageTracker.Assets.Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>CCUsageTracker.Tests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>
