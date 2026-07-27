@@ -8,16 +8,22 @@ public sealed class SingleInstanceCoordinator : IDisposable
     private readonly EventWaitHandle? _toggleEvent;
     private readonly RegisteredWaitHandle? _registeredWait;
     private readonly SynchronizationContext? _synchronizationContext;
-
-    public SingleInstanceCoordinator(Action toggleRequested)
+    public SingleInstanceCoordinator(Action toggleRequested) : this(toggleRequested, MutexName, EventName)
     {
-        _mutex = new Mutex(true, MutexName, out var isFirstInstance);
+    }
+
+    internal SingleInstanceCoordinator(
+        Action toggleRequested,
+        string mutexName,
+        string eventName)
+    {
+        _mutex = new Mutex(true, mutexName, out var isFirstInstance);
         IsFirstInstance = isFirstInstance;
         if (!isFirstInstance)
             return;
 
         _synchronizationContext = SynchronizationContext.Current;
-        _toggleEvent = new EventWaitHandle(false, EventResetMode.AutoReset, EventName);
+        _toggleEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName);
         _registeredWait = ThreadPool.RegisterWaitForSingleObject(
             _toggleEvent,
             (_, timedOut) =>
@@ -32,14 +38,16 @@ public sealed class SingleInstanceCoordinator : IDisposable
 
     public bool IsFirstInstance { get; }
 
-    public static bool SignalExistingInstance()
+    public static bool SignalExistingInstance() => SignalExistingInstance(EventName);
+
+    internal static bool SignalExistingInstance(string eventName)
     {
         var deadline = DateTime.UtcNow + TimeSpan.FromSeconds(2);
         while (DateTime.UtcNow < deadline)
         {
             try
             {
-                using var toggleEvent = EventWaitHandle.OpenExisting(EventName);
+                using var toggleEvent = EventWaitHandle.OpenExisting(eventName);
                 return toggleEvent.Set();
             }
             catch (WaitHandleCannotBeOpenedException)

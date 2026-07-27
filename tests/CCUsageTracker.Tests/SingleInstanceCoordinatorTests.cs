@@ -9,11 +9,16 @@ public sealed class SingleInstanceCoordinatorTests
     {
         Assert.SkipWhen(!OperatingSystem.IsWindows(), "Named Windows event test.");
         var signalCount = 0;
+        var testId = Guid.NewGuid().ToString("N");
         SynchronizationContext.SetSynchronizationContext(new ImmediateSynchronizationContext());
-        using var coordinator = new SingleInstanceCoordinator(() => Interlocked.Increment(ref signalCount));
+        using var coordinator = new SingleInstanceCoordinator(
+            () => Interlocked.Increment(ref signalCount),
+            $@"Local\CCUsageTracker-Test-Mutex-{testId}",
+            $@"Local\CCUsageTracker-Test-Event-{testId}");
 
         Assert.True(coordinator.IsFirstInstance);
-        Assert.True(SingleInstanceCoordinator.SignalExistingInstance());
+        Assert.True(SingleInstanceCoordinator.SignalExistingInstance(
+            $@"Local\CCUsageTracker-Test-Event-{testId}"));
         Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref signalCount) == 1, TimeSpan.FromSeconds(2)));
     }
 
