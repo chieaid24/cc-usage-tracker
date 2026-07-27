@@ -2,7 +2,7 @@
 param(
     [switch]$SkipInstaller,
     [string]$InnoSetupPath,
-    [string]$Version = "0.1.0"
+    [string]$Version = "0.1.2"
 )
 
 $ErrorActionPreference = "Stop"
@@ -22,7 +22,6 @@ if (Test-Path $portable) {
 New-Item -ItemType Directory -Path $portable | Out-Null
 Copy-Item $executable (Join-Path $portable "CCUsageTracker.exe")
 Copy-Item (Join-Path $root "installer/README.txt") (Join-Path $portable "README.txt")
-Copy-Item (Join-Path $root "LICENSE") (Join-Path $portable "LICENSE.txt")
 
 $zipPath = Join-Path $artifacts "CCUsageTracker-win-x64.zip"
 Compress-Archive -Path (Join-Path $portable "*") -DestinationPath $zipPath -Force

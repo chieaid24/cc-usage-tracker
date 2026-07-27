@@ -34,8 +34,8 @@ Before a release, install Inno Setup 6 and run:
 .\scripts\release-local.ps1 -InnoSetupPath "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
 ```
 
-Do not claim interactive Chrome behavior is verified without completing the
-README manual checklist on a Windows desktop.
+Do not claim interactive Chrome behavior is verified without rerunning the
+Windows hotkey, placement, window-style, Escape, and close checks.
 
 ## Security constraints
 

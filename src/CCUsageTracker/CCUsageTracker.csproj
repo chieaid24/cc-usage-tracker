@@ -12,9 +12,9 @@
     <AssemblyTitle>CC Usage Tracker</AssemblyTitle>
     <Product>CC Usage Tracker</Product>
     <Description>Open Claude and Codex usage pages from the Windows system tray.</Description>
-    <Company>CC Usage Tracker contributors</Company>
-    <Copyright>Copyright (c) 2026 CC Usage Tracker contributors</Copyright>
-    <Version>0.1.1</Version>
+    <Company>CC Usage Tracker</Company>
+    <Copyright>Copyright (c) 2026</Copyright>
+    <Version>0.1.2</Version>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon Condition="Exists('Assets/cc-usage-tracker-icon.ico')">Assets/cc-usage-tracker-icon.ico</ApplicationIcon>
     <PublishTrimmed>false</PublishTrimmed>

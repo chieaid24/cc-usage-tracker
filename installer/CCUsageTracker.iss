@@ -1,8 +1,8 @@
 #define MyAppName "CC Usage Tracker"
 #ifndef MyAppVersion
-#define MyAppVersion "0.1.1"
+#define MyAppVersion "0.1.2"
 #endif
-#define MyAppPublisher "CC Usage Tracker contributors"
+#define MyAppPublisher "CC Usage Tracker"
 #define MyAppExeName "CCUsageTracker.exe"
 
 [Setup]
