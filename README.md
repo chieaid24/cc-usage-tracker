@@ -1,6 +1,6 @@
 # Claude/Codex Usage Tracker
 
-Open Claude and Codex usage pages side by side from the Windows system tray.
+Open Claude and Codex usage pages side by side from a hotkey or the system tray.
 
 [Download the latest release](https://github.com/chieaid24/cc-usage-tracker/releases/latest)
 
